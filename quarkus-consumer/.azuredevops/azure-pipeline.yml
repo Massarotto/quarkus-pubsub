@@ -1,6 +1,9 @@
 trigger:
   - main
 
+pool:
+  name: self-hosted-pool
+
 variables:
   GCP_PROJECT_ID: 'study-464117'
   GCP_REGION: 'us-central1'
