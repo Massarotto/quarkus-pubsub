@@ -5,10 +5,15 @@ pool:
   name: 'self-hosted-pool'
 
 variables:
-  GCP_PROJECT_ID: 'study-464117'
-  GCP_REGION: 'us-central1'
-  IMAGE_NAME: 'consumer-job'
-  IMAGE_URI: 'gcr.io/$(GCP_PROJECT_ID)/$(IMAGE_NAME)'
+  - group: GCP
+  - name: GCP_PROJECT_ID
+    value: 'study-464117'
+  - name: GCP_REGION
+    value: 'us-central1'
+  - name: IMAGE_NAME
+    value: 'consumer-job'
+  - name: IMAGE_URI
+    value: 'gcr.io/$(GCP_PROJECT_ID)/$(IMAGE_NAME)'
 
 stages:
   - stage: BuildAndDeploy
