@@ -19,37 +19,27 @@ stages:
           name: 'self-hosted-pool'
 
         steps:
-          # 1️⃣ Checkout do código
+          # 1 Checkout do código
           - checkout: self
 
-          # 2️⃣ Instalar Google Cloud SDK
-          - script: |
-              echo "Instalando Google Cloud SDK..."
-              sudo apt-get update -y
-              sudo apt-get install -y apt-transport-https ca-certificates gnupg curl
-              echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-              curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-              sudo apt-get update -y && sudo apt-get install -y google-cloud-sdk
-            displayName: 'Install gcloud SDK'
-
-          # 3️⃣ Salvar chave JSON em um arquivo local
+          # 2 Salvar chave JSON em um arquivo local
           - script: |
               echo '$(GCP_SA_KEY_JSON)' > gcp-key.json
             displayName: 'Write GCP Service Account JSON to File'
 
-          # 4️⃣ Autenticar no GCP
+          # 3 Autenticar no GCP
           - script: |
               gcloud auth activate-service-account --key-file=gcp-key.json
               gcloud config set project $(GCP_PROJECT_ID)
               gcloud auth configure-docker
             displayName: 'Authenticate gcloud'
 
-          # 5️⃣ Buildar imagem com Cloud Build
+          # 4 Buildar imagem com Cloud Build
           - script: |
               gcloud builds submit --tag $(IMAGE_URI)
             displayName: 'Cloud Build: Submit Image'
 
-          # 6️⃣ Deploy no Cloud Run Job
+          # 5 Deploy no Cloud Run Job
           - script: |
               echo "Tentando criar job (pode falhar se já existir)..."
               gcloud run jobs create $(IMAGE_NAME) \
