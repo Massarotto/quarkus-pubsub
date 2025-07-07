@@ -16,7 +16,7 @@ stages:
       - job: Build
         displayName: 'Build and Deploy to Google Cloud'
         pool:
-          vmImage: 'ubuntu-latest'
+          name: 'self-hosted-pool'
 
         steps:
           # 1️⃣ Checkout do código
