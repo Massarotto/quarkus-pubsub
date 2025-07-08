@@ -41,7 +41,7 @@ stages:
 
           # 4 Buildar imagem com Cloud Build
           - script: |
-              gcloud builds submit --tag $(IMAGE_URI) --file=src/main/docker/Dockerfile.jvm src/main/docker/
+              gcloud builds submit --tag $(IMAGE_URI) src/main/docker/
             displayName: 'Cloud Build: Submit Image'
 
           # 5 Deploy no Cloud Run Job
