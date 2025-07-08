@@ -41,7 +41,7 @@ stages:
 
           # 4 Buildar imagem com Cloud Build
           - script: |
-              gcloud builds submit --tag $(IMAGE_URI) .
+              gcloud builds submit --tag $(IMAGE_URI) $(Build.SourcesDirectory)
             displayName: 'Cloud Build: Submit Image'
 
           # 5 Deploy no Cloud Run Job
