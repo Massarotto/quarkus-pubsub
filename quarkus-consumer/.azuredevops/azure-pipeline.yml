@@ -47,7 +47,7 @@ stages:
 
           # 5 Buildar imagem com Cloud Build
           - script: |
-              gcloud builds submit --tag $(IMAGE_URI) .
+              gcloud builds submit --tag $(IMAGE_URI) quarkus-consumer/
             displayName: 'Cloud Build: Submit Image'
 
           # 6 Deploy no Cloud Run Job
