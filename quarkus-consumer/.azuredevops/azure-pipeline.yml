@@ -39,12 +39,18 @@ stages:
               gcloud auth configure-docker
             displayName: 'Authenticate gcloud'
 
-          # 4 Buildar imagem com Cloud Build
+          # 4 Debug - listar arquivos
           - script: |
-              gcloud builds submit --tag $(IMAGE_URI) $(Build.SourcesDirectory)
+              echo "Verificando se o Dockerfile está presente..."
+              ls -lah
+            displayName: 'Listar arquivos do diretório'
+
+          # 5 Buildar imagem com Cloud Build
+          - script: |
+              gcloud builds submit --tag $(IMAGE_URI) .
             displayName: 'Cloud Build: Submit Image'
 
-          # 5 Deploy no Cloud Run Job
+          # 6 Deploy no Cloud Run Job
           - script: |
               echo "Tentando criar job (pode falhar se já existir)..."
               gcloud run jobs create $(IMAGE_NAME) \
